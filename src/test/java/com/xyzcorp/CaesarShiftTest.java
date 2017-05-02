@@ -20,8 +20,34 @@ public class CaesarShiftTest {
         assertThat(result).isEqualTo("a");
     }
 
-    public void testEmptyStringWithAShiftOne() {}
+    //NotRedBar
+    @Test
+    public void testEmptyStringWithAShiftOne() {
+    	    CaesarShift caesarShift = new CaesarShift(1);
+        String result = caesarShift.encrypt("");
+        assertThat(result).isEqualTo("");
+    }
+    
+    //NotRedBar
+    @Test
+    public void testEmptyStringWithAShiftTen() {
+    	    CaesarShift caesarShift = new CaesarShift(10);
+        String result = caesarShift.encrypt("");
+        assertThat(result).isEqualTo("");
+    }
+    
+    @Test
+    public void testStringOfOneAlphaCharAndShiftOf1(){
+    	    CaesarShift caesarShift = new CaesarShift(1);
+        String result = caesarShift.encrypt("a");
+        assertThat(result).isEqualTo("b");
+    }
+    
+    
     public void testStringOfSpace() {}
+    public void testStringOfSpecialChars() {}
+    
     public void testCaesarShiftOfNull() {}
+    public void testDoWeShiftNumbers() {}
     public void testNegativeShift() {}   
 }
