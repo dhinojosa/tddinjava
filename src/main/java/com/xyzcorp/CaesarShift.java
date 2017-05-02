@@ -6,7 +6,8 @@ public class CaesarShift {
 	}
 
 	public String encrypt(String string) {
-		return null;
+		if (string == null) return "";
+		else return string;
 	}
 
 }
