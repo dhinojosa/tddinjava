@@ -1,45 +1,38 @@
 package com.xyzcorp;
 
 import java.util.Objects;
+import java.util.stream.Collectors;
 
 public class CaesarShift {
 
 	private static final int NUMBER_LETTERS = 'z' - 'a' + 1;
-	private int shift;
+	private int defaultShift;
 
 	public CaesarShift(int shift) {
-		this.shift = shift;
+		this.defaultShift = shift;
+	}
+
+	private char shiftChar(char c, int otherShift) {
+		char result = c;
+		if (Character.isAlphabetic(c)) {
+            char offset = Character.isUpperCase(c) ? 'A' : 'a';
+			result = (char) (((c + otherShift - offset) % NUMBER_LETTERS + NUMBER_LETTERS) % NUMBER_LETTERS + offset);
+        }
+		return result;
+	}
+
+	private String process(String string, int shift) {
+		Objects.requireNonNull(string, "String cannot be null");
+		if(string.isEmpty()) return "";
+	    return string.chars().boxed().map(integer -> (char) integer.intValue())
+			  .map(character -> "" + shiftChar(character, shift)).collect(Collectors.joining());
 	}
 
 	public String encrypt(String string) {
-		Objects.requireNonNull(string, "String cannot be null");
-		if(string.isEmpty()) return "";
-		StringBuilder builder = new StringBuilder();
-		for (int i = 0; i < string.length(); i++) {
-			char c = string.charAt(i);
-			char result = c;
-			if (Character.isAlphabetic(c)) {
-				char offset = Character.isUpperCase(c) ? 'A' : 'a';
-				result = (char) ((c + shift - offset) % NUMBER_LETTERS + offset);
-			}
-			builder.append(result);
-		}
-		return builder.toString();
+		return process(string, defaultShift);
 	}
 
 	public String decrypt(String string) {
-		Objects.requireNonNull(string, "String cannot be null");
-		if(string.isEmpty()) return "";
-		StringBuilder builder = new StringBuilder();
-		for (int i = 0; i < string.length(); i++) {
-			char c = string.charAt(i);
-			char result = c;
-			if (Character.isAlphabetic(c)) {
-				char offset = Character.isUpperCase(c) ? 'A' : 'a';
-				result = (char) ((((c - shift - offset) % NUMBER_LETTERS + NUMBER_LETTERS) % NUMBER_LETTERS + offset));
-			}
-			builder.append(result);
-		}
-		return builder.toString();
+		return process(string, -defaultShift);
 	}
 }
