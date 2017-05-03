@@ -65,26 +65,104 @@ public class CaesarShiftTest {
 		assertThat(result).isEqualTo(" ");
 	}
 
-	public void testStringOfSpace() {
+	@Test
+	public void testStringOfSpaceAndShiftOf5() {
+		CaesarShift caesarShift = new CaesarShift(5);
+		String result = caesarShift.encrypt(" ");
+		assertThat(result).isEqualTo(" ");
 	}
 
-	public void testStringOfSpecialChars() {
-	} // ~'$#@
+	@Test
+	public void testStringOfSpecialChar() {
+		CaesarShift caesarShift = new CaesarShift(5);
+		String result = caesarShift.encrypt("~");
+		assertThat(result).isEqualTo("~");
+	}
 
 	@Test
 	public void testCaesarShift0WithANullString() {
 		CaesarShift caesarShift = new CaesarShift(0);
 		try {
-			caesarShift.encrypt(""); // Exception!
+			caesarShift.encrypt(null); // Exception!
 			fail("The line should not reach this point");
-		} catch (IllegalArgumentException iae) {
+		} catch (NullPointerException iae) {
 			assertThat(iae).hasMessage("String cannot be null");
 		}
 	}
 
-	public void testDoWeShiftNumbers() {
+	@Test
+	public void testStringOfANumber() {
+		CaesarShift caesarShift = new CaesarShift(1);
+		String result = caesarShift.encrypt("3");
+		assertThat(result).isEqualTo("3");
 	}
 
-	public void testNegativeShift() {
+	@Test
+	public void testAStringOfMoreThanOneLetter() {
+		CaesarShift caesarShift = new CaesarShift(3);
+		String result = caesarShift.encrypt("Apple");
+		assertThat(result).isEqualTo("Dssoh");
 	}
+
+
+	@Test
+	public void testCaesarShiftDecryptOfEmptyStringAnd0() {
+		CaesarShift caesarShift = new CaesarShift(0);
+		String result = caesarShift.decrypt("");
+		assertEquals("", result);
+	}
+
+	@Test
+	public void testDecryptStringWithOneCharAndShiftOfZero() {
+		CaesarShift caesarShift = new CaesarShift(0);
+		String result = caesarShift.decrypt("a");
+		assertThat(result).isEqualTo("a");
+	}
+
+	@Test
+	public void testDecryptStringOfOneAlphaCharAndShiftOf1() {
+		CaesarShift caesarShift = new CaesarShift(1);
+		String result = caesarShift.decrypt("a");
+		assertThat(result).isEqualTo("z");
+	}
+
+	@Test
+	public void testDecryptStringOfzAndShiftOf1() {
+		CaesarShift caesarShift = new CaesarShift(1);
+		String result = caesarShift.decrypt("z");
+		assertThat(result).isEqualTo("y");
+	}
+
+	@Test
+	public void testDecryptStringOfBAndShiftOf1() {
+		CaesarShift caesarShift = new CaesarShift(1);
+		String result = caesarShift.decrypt("G");
+		assertThat(result).isEqualTo("F");
+	}
+
+	@Test
+	public void testDecryptStringOfSpaceAndShiftOf1() {
+		CaesarShift caesarShift = new CaesarShift(1);
+		String result = caesarShift.decrypt(" ");
+		assertThat(result).isEqualTo(" ");
+	}
+
+	@Test
+	public void testDecryptStringOfSpecialChar() {
+		CaesarShift caesarShift = new CaesarShift(5);
+		String result = caesarShift.decrypt("~");
+		assertThat(result).isEqualTo("~");
+	}
+
+	@Test
+	public void testDecryptCaesarShift0WithANullString() {
+		CaesarShift caesarShift = new CaesarShift(0);
+		try {
+			caesarShift.decrypt(null); // Exception!
+			fail("The line should not reach this point");
+		} catch (NullPointerException iae) {
+			assertThat(iae).hasMessage("String cannot be null");
+		}
+	}
+
 }
