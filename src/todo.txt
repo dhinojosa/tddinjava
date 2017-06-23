@@ -1,0 +1,24 @@
+
+
+1. Parse the file
+    (Parse each line with delimiter)
+    (Should each line return that model?)
+4. Maybe create a Java POJO that represents a Checkout, maybe?
+
+
+2. Sorted list of the top 5 people who owe me money and how much they owe.
+    (Java 8 Stream of <?>, sort, limit 5, and report)
+    (Do we need a class for this)
+    (Can we just run this in the main method without test)
+
+
+3. $10 a month after the 1 month grace period  (Done!)
+    (Maybe call it calculatePenalty?)
+    (Should this be a class?)
+
+
+Notes:
+1. I am one 1-1 relation between person and checkout
+
+
+3. 1111
