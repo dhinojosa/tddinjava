@@ -186,7 +186,6 @@ public class CaesarShiftTest {
 				.hasMessage("String is null");
 	}
 
-
 	//Very difficult
 	@Test
 	public void testDecodeOfAnAWithShiftOf1() {

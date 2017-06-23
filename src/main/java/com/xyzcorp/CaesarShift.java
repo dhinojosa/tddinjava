@@ -5,6 +5,8 @@ import java.util.stream.Collectors;
 
 public class CaesarShift {
     private final int shift;
+    public static final char CAPITAL_A = 'A';
+    public static final char SMALL_A = 'a';
 
     public CaesarShift(int shift) {
         this.shift = shift;
@@ -12,9 +14,7 @@ public class CaesarShift {
 
     private char encodeChar(char c, int charShift) {
         if (!Character.isAlphabetic(c)) return c;
-        char capitalA = 'A';
-        char smallA = 'a';
-        char anchorA = Character.isUpperCase(c) ? capitalA : smallA;
+        char anchorA = Character.isUpperCase(c) ? CAPITAL_A : SMALL_A;
         int actualShift = charShift - (26 * (charShift/26)); //Keep the number small
         return (char)((c - anchorA + actualShift + 26) % 26 + anchorA);
     }
