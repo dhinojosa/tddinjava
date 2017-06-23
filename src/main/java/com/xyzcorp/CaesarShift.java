@@ -10,7 +10,7 @@ public class CaesarShift {
         this.shift = shift;
     }
 
-    public char encodeChar(char c, int charShift) {
+    private char encodeChar(char c, int charShift) {
         if (!Character.isAlphabetic(c)) return c;
         char capitalA = 'A';
         char smallA = 'a';
@@ -19,23 +19,21 @@ public class CaesarShift {
         return (char)((c - anchorA + actualShift + 26) % 26 + anchorA);
     }
 
-    public String encode(String s) {
+    private String encodeString(String s, int charShift) {
         Objects.requireNonNull(s, "String is null");
         if (s.isEmpty()) return "";
         return s.chars()
                 .boxed()
-                .map(c -> encodeChar((char) c.intValue(), shift))
+                .map(c -> encodeChar((char) c.intValue(), charShift))
                 .map(String::valueOf)
                 .collect(Collectors.joining());
     }
 
+    public String encode(String s) {
+        return encodeString(s, shift);
+    }
+
     public String decode(String s) {
-        Objects.requireNonNull(s, "String is null");
-        if (s.isEmpty()) return "";
-        return s.chars()
-                .boxed()
-                .map(c -> encodeChar((char) c.intValue(), -shift))
-                .map(String::valueOf)
-                .collect(Collectors.joining());
+        return encodeString(s, -shift);
     }
 }
