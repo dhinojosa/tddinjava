@@ -114,14 +114,112 @@ public class CaesarShiftTest {
 	@Test
 	public void testSingleLetterShiftOf123AndShouldBeShiftedT() {
 		CaesarShift cs = new CaesarShift(123);
-		assertThat(cs.encode("p")).isEqualTo("i"); //i?
+		assertThat(cs.encode("p")).isEqualTo("i");
 	}
 
-	//Homework!
-	//123 problem
 	//Add another character
+	@Test
+	public void testDoubleLetterOfABShiftOf2() {
+		CaesarShift cs = new CaesarShift(1);
+		assertThat(cs.encode("ab")).isEqualTo("bc");
+	}
+
 	//Capital Letters should work: A + 5 = F, Z + 4 = D
-	//Add other characters to make complete sentences
+	@Test
+	public void testSingleLetterShiftOf1FromCapitalM() {
+		CaesarShift cs = new CaesarShift(1);
+		assertThat(cs.encode("M")).isEqualTo("N");
+	}
+
+	//Capital Letters should work: A + 5 = F, Z + 4 = D
+	@Test
+	public void testSingleLetterShiftOf1FromCapitalZ() {
+		CaesarShift cs = new CaesarShift(1);
+		assertThat(cs.encode("Z")).isEqualTo("A");
+	}
+
 	//Spaces, Numbers, Strange Characters (Leave them alone)
+	@Test
+	public void testStrangeCharacters() {
+		CaesarShift cs = new CaesarShift(4);
+		assertThat(cs.encode("~")).isEqualTo("~");
+	}
+
+	//Add other characters to make complete sentences
+	@Test
+	public void testHelloWorld() {
+		CaesarShift cs = new CaesarShift(1);
+		assertThat(cs.encode("Hello, World.")).isEqualTo("Ifmmp, Xpsme.");
+	}
+
 	//Decode (subtraction)
+	@Test
+	public void testDecodeOfAnEmptyStringWithShiftOf1() {
+		CaesarShift cs = new CaesarShift(1);
+		assertThat(cs.decode("")).isEqualTo("");
+	}
+
+	@Test
+	public void testDecodeOfAnSingleStringWithShiftOf0() {
+		CaesarShift cs = new CaesarShift(0);
+		assertThat(cs.decode("b")).isEqualTo("b");
+	}
+
+	@Test
+	public void testDecodeOfAnSingleStringWithShiftOf1() {
+		CaesarShift cs = new CaesarShift(1);
+		assertThat(cs.decode("b")).isEqualTo("a");
+	}
+
+	//NoRedBar
+	@Test
+	public void testDecodeOfAnSingleStringWithShiftOf5() {
+		CaesarShift cs = new CaesarShift(5);
+		assertThat(cs.decode("f")).isEqualTo("a");
+	}
+
+	@Test
+	public void testDecodeNullString() {
+		CaesarShift cs = new CaesarShift(0);
+		assertThatThrownBy(() -> cs.decode(null))
+				.isInstanceOf(NullPointerException.class)
+				.hasMessage("String is null");
+	}
+
+
+	//Very difficult
+	@Test
+	public void testDecodeOfAnAWithShiftOf1() {
+		CaesarShift cs = new CaesarShift(1);
+		assertThat(cs.decode("a")).isEqualTo("z");
+	}
+
+	//NoRedBar
+	//Very difficult
+	@Test
+	public void testDecodeOfAnAWithCapitalShiftOf1() {
+		CaesarShift cs = new CaesarShift(1);
+		assertThat(cs.decode("A")).isEqualTo("Z");
+	}
+
+    //NoRedBar
+	@Test
+	public void testDecodeOfAnAWithCapitalShiftOfAHighMultipleOf26() {
+		CaesarShift cs = new CaesarShift(26 * 10);
+		assertThat(cs.decode("A")).isEqualTo("A");
+	}
+
+	@Test
+	public void testDecodeOfAnAWithCapitalShiftOfAHighMultipleOf26And1() {
+		CaesarShift cs = new CaesarShift((26 * 10) + 1);
+		assertThat(cs.decode("a")).isEqualTo("z");
+	}
+
+	//Add other characters to make complete sentences
+	@Test
+	public void testDecodeHelloWorld() {
+		CaesarShift cs = new CaesarShift(1);
+		assertThat(cs.decode("Ifmmp, Xpsme.")).isEqualTo("Hello, World.");
+	}
+
 }
