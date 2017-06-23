@@ -1,9 +1,9 @@
 
 
-1. Parse the file
+1. Parse the file (Done)
     (Parse each line with delimiter)
     (Should each line return that model?)
-4. Maybe create a Java POJO that represents a Checkout, maybe?
+4. Maybe create a Java POJO that represents a Checkout, maybe? (Done)
 
 
 2. Sorted list of the top 5 people who owe me money and how much they owe.
