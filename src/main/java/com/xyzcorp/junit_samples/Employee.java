@@ -1,4 +1,4 @@
-package com.xyzcorp;
+package com.xyzcorp.junit_samples;
 
 public class Employee {
     private String firstName;

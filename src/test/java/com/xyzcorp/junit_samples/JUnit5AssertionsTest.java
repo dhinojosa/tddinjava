@@ -1,6 +1,5 @@
 package com.xyzcorp.junit_samples;
 
-import com.xyzcorp.Employee;
 import org.junit.jupiter.api.*;
 
 import static java.time.Duration.*;
