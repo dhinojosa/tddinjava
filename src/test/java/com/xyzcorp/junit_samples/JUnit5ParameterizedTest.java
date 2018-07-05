@@ -84,8 +84,8 @@ public class JUnit5ParameterizedTest {
      */
     private static Stream<Arguments> stringIntAndListProvider() {
         return Stream.of(
-                Arguments.of("foo", 1, List.of("a", "b")),
-                Arguments.of("bar", 2, List.of("x", "y"))
+                Arguments.of("foo", 1, Arrays.asList("a", "b")),
+                Arguments.of("bar", 2, Arrays.asList("x", "y"))
         );
     }
 
