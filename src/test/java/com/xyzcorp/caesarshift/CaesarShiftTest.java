@@ -67,20 +67,55 @@ public class CaesarShiftTest {
         assertEquals("a", caesarShift.encode("a"));
     }
 
-    private static Stream<Arguments> caesarShiftProvider() {
+    private static Stream<Arguments> caesarShiftEncodeProvider() {
         return Stream.of(
                 Arguments.of("", 0, ""),
                 Arguments.of("a", 0, "a"),
                 Arguments.of("", 1010, ""), //Green bar!
-                Arguments.of("a", 1, "b"));
+                Arguments.of("a", 1, "b"),
+                Arguments.of("ab", 1, "bc"),
+                Arguments.of("z", 1, "a"),
+                Arguments.of("a", -1, "z"),
+                Arguments.of("a", -4, "w"),
+                Arguments.of("a", 260, "a"),
+                Arguments.of("a", -260, "a"),
+                Arguments.of("~", 10, "~"),
+                Arguments.of(" ", 10, " "),
+                Arguments.of("A", 1, "B"),
+                Arguments.of("A", 0, "A"),
+                Arguments.of("Z", 1, "A")
+        );
+    }
+
+    private static Stream<Arguments> caesarShiftDecodeProvider() {
+        return Stream.of(
+                Arguments.of("", 0, ""),
+                Arguments.of("a", 0, "a"),
+                Arguments.of("", 1010, ""),
+                Arguments.of("b", 1, "a"),
+                Arguments.of("z", 1, "y"),
+                Arguments.of("a", 1, "z"),
+                Arguments.of("a", 260, "a"),
+                Arguments.of("a", -260, "a"),
+                Arguments.of("~", 10, "~"),
+                Arguments.of(" ", 10, " "),
+                Arguments.of("A", 1, "Z")
+        );
     }
 
     @ParameterizedTest(name = "{index}, originalString: {0}, shift: {1}, result:{2}")
-    @MethodSource(value = {"caesarShiftProvider"})
+    @MethodSource(value = {"caesarShiftEncodeProvider"})
     public void testCaesarShiftEncode(String original, int shift, String result) {
-
         CaesarShift caesarShift = new CaesarShift(shift);
         assertThat(caesarShift.encode(original)).isEqualTo(result);
+    }
+
+
+    @ParameterizedTest(name = "{index}, originalString: {0}, shift: {1}, result:{2}")
+    @MethodSource(value = {"caesarShiftDecodeProvider"})
+    public void testCaesarShiftDecode(String original, int shift, String result) {
+        CaesarShift caesarShift = new CaesarShift(shift);
+        assertThat(caesarShift.decode(original)).isEqualTo(result);
     }
 
     @Test
